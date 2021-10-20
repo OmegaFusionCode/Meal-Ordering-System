@@ -1,0 +1,166 @@
+--
+-- Data for the 'students' table
+--
+
+INSERT INTO `students` VALUES (1000, 'Carlos', 'Alexander', '9AB', 'carlos', 5.40);
+INSERT INTO `students` VALUES (1001, 'Janet', 'Campbell', '9CD', 'janet', 5.60);
+INSERT INTO `students` VALUES (1002, 'Stephanie', 'Anderson', '10EF', 'stephanie', 9.80);
+INSERT INTO `students` VALUES (1003, 'James', 'Diaz', '10GH', 'james', 0.70);
+INSERT INTO `students` VALUES (1004, 'Russell', 'Johnson', '11IJ', 'russell', 3.76);
+INSERT INTO `students` VALUES (1005, 'Anne', 'Baker', '11KL', 'anne', 16.80);
+INSERT INTO `students` VALUES (1006, 'Andrew', 'Ross', '11MN', 'andrew', 12.67);
+INSERT INTO `students` VALUES (1007, 'Kenneth', 'Griffin', '11OP', 'kenneth', 12.67);
+INSERT INTO `students` VALUES (1008, 'Catherine', 'Cooper', '11QR', 'catherine', 12.67);
+INSERT INTO `students` VALUES (1009, 'Joan', 'Scott', '11ST', 'joan', 0.67);
+
+
+
+--
+-- Data for the 'student_allergens' table
+--
+
+INSERT INTO `student_allergens` VALUES (1000, 6004);
+INSERT INTO `student_allergens` VALUES (1000, 6013);
+
+
+
+--
+-- Data for the 'days' table
+--
+
+INSERT INTO `days` VALUES (4000, 1578268800, 25);
+INSERT INTO `days` VALUES (4001, 1578355200, 25);
+INSERT INTO `days` VALUES (4002, 1578441600, 25);
+INSERT INTO `days` VALUES (4003, 1578528000, default);
+INSERT INTO `days` VALUES (4004, 1578614400, default);
+INSERT INTO `days` VALUES (4005, 1578873600, default);
+INSERT INTO `days` VALUES (4006, 1578960000, default);
+INSERT INTO `days` VALUES (4007, 1579046400, default);
+INSERT INTO `days` VALUES (4008, 1579132800, default);
+INSERT INTO `days` VALUES (4009, 1579219200, default);
+
+
+
+--
+-- Data for the 'orders' table
+--
+
+INSERT INTO `orders` VALUES (2000, 1000, 3003, 4000);
+INSERT INTO `orders` VALUES (2001, 1001, 3006, 4000);
+INSERT INTO `orders` VALUES (2002, 1002, 3009, 4000);
+INSERT INTO `orders` VALUES (2003, 1003, 3000, 4000);
+INSERT INTO `orders` VALUES (2004, 1004, 3000, 4000);
+INSERT INTO `orders` VALUES (2005, 1005, 3006, 4000);
+INSERT INTO `orders` VALUES (2006, 1006, 3007, 4000);
+INSERT INTO `orders` VALUES (2007, 1007, 3000, 4000);
+INSERT INTO `orders` VALUES (2008, 1008, 3003, 4000);
+INSERT INTO `orders` VALUES (2009, 1009, 3000, 4000);
+
+INSERT INTO `orders` VALUES (2011, 1001, 3007, 4001);
+INSERT INTO `orders` VALUES (2012, 1002, 3004, 4001);
+INSERT INTO `orders` VALUES (2013, 1003, 3001, 4001);
+INSERT INTO `orders` VALUES (2014, 1004, 3008, 4001);
+INSERT INTO `orders` VALUES (2015, 1005, 3008, 4001);
+INSERT INTO `orders` VALUES (2016, 1006, 3004, 4001);
+INSERT INTO `orders` VALUES (2017, 1007, 3001, 4001);
+INSERT INTO `orders` VALUES (2018, 1008, 3004, 4001);
+INSERT INTO `orders` VALUES (2019, 1009, 3001, 4001);
+
+INSERT INTO `orders` VALUES (2020, 1000, 3008, 4002);
+INSERT INTO `orders` VALUES (2021, 1001, 3004, 4002);
+INSERT INTO `orders` VALUES (2022, 1002, 3005, 4002);
+INSERT INTO `orders` VALUES (2023, 1003, 3002, 4002);
+INSERT INTO `orders` VALUES (2024, 1004, 3005, 4002);
+INSERT INTO `orders` VALUES (2025, 1005, 3005, 4002);
+INSERT INTO `orders` VALUES (2026, 1006, 3004, 4002);
+INSERT INTO `orders` VALUES (2027, 1007, 3006, 4002);
+INSERT INTO `orders` VALUES (2028, 1008, 3002, 4002);
+INSERT INTO `orders` VALUES (2029, 1009, 3005, 4002);
+
+INSERT INTO `orders` VALUES (2030, 1000, 3009, 4003);
+INSERT INTO `orders` VALUES (2031, 1001, 3006, 4003);
+INSERT INTO `orders` VALUES (2032, 1002, 3008, 4003);
+INSERT INTO `orders` VALUES (2033, 1003, 3002, 4003);
+INSERT INTO `orders` VALUES (2034, 1004, 3002, 4003);
+INSERT INTO `orders` VALUES (2035, 1005, 3003, 4003);
+INSERT INTO `orders` VALUES (2036, 1006, 3006, 4003);
+INSERT INTO `orders` VALUES (2037, 1007, 3008, 4003);
+INSERT INTO `orders` VALUES (2038, 1008, 3003, 4003);
+INSERT INTO `orders` VALUES (2039, 1009, 3003, 4003);
+
+INSERT INTO `orders` VALUES (2040, 1000, 3004, 4004);
+INSERT INTO `orders` VALUES (2041, 1001, 3006, 4004);
+INSERT INTO `orders` VALUES (2042, 1002, 3001, 4004);
+INSERT INTO `orders` VALUES (2043, 1003, 3000, 4004);
+INSERT INTO `orders` VALUES (2044, 1004, 3000, 4004);
+INSERT INTO `orders` VALUES (2045, 1005, 3001, 4004);
+INSERT INTO `orders` VALUES (2046, 1006, 3006, 4004);
+INSERT INTO `orders` VALUES (2047, 1007, 3004, 4004);
+INSERT INTO `orders` VALUES (2048, 1008, 3001, 4004);
+INSERT INTO `orders` VALUES (2049, 1009, 3008, 4004);
+
+
+
+--
+-- Data for the 'menu-options' table
+--
+
+INSERT INTO `menu_options` VALUES (4000, 3000);
+INSERT INTO `menu_options` VALUES (4000, 3003);
+INSERT INTO `menu_options` VALUES (4000, 3006);
+INSERT INTO `menu_options` VALUES (4000, 3007);
+INSERT INTO `menu_options` VALUES (4000, 3009);
+
+INSERT INTO `menu_options` VALUES (4001, 3001);
+INSERT INTO `menu_options` VALUES (4001, 3002);
+INSERT INTO `menu_options` VALUES (4001, 3004);
+INSERT INTO `menu_options` VALUES (4001, 3007);
+INSERT INTO `menu_options` VALUES (4001, 3008);
+
+INSERT INTO `menu_options` VALUES (4002, 3002);
+INSERT INTO `menu_options` VALUES (4002, 3004);
+INSERT INTO `menu_options` VALUES (4002, 3005);
+INSERT INTO `menu_options` VALUES (4002, 3006);
+INSERT INTO `menu_options` VALUES (4002, 3008);
+
+INSERT INTO `menu_options` VALUES (4003, 3002);
+INSERT INTO `menu_options` VALUES (4003, 3003);
+INSERT INTO `menu_options` VALUES (4003, 3006);
+INSERT INTO `menu_options` VALUES (4003, 3008);
+INSERT INTO `menu_options` VALUES (4003, 3009);
+
+INSERT INTO `menu_options` VALUES (4004, 3000);
+INSERT INTO `menu_options` VALUES (4004, 3001);
+INSERT INTO `menu_options` VALUES (4004, 3004);
+INSERT INTO `menu_options` VALUES (4004, 3006);
+INSERT INTO `menu_options` VALUES (4004, 3008);
+
+INSERT INTO `menu_options` VALUES (4005, 3001);
+INSERT INTO `menu_options` VALUES (4005, 3005);
+INSERT INTO `menu_options` VALUES (4005, 3006);
+INSERT INTO `menu_options` VALUES (4005, 3007);
+INSERT INTO `menu_options` VALUES (4005, 3009);
+
+INSERT INTO `menu_options` VALUES (4006, 3000);
+INSERT INTO `menu_options` VALUES (4006, 3001);
+INSERT INTO `menu_options` VALUES (4006, 3003);
+INSERT INTO `menu_options` VALUES (4006, 3006);
+INSERT INTO `menu_options` VALUES (4006, 3010);
+
+INSERT INTO `menu_options` VALUES (4007, 3002);
+INSERT INTO `menu_options` VALUES (4007, 3004);
+INSERT INTO `menu_options` VALUES (4007, 3005);
+INSERT INTO `menu_options` VALUES (4007, 3007);
+INSERT INTO `menu_options` VALUES (4007, 3008);
+
+INSERT INTO `menu_options` VALUES (4008, 3003);
+INSERT INTO `menu_options` VALUES (4008, 3005);
+INSERT INTO `menu_options` VALUES (4008, 3007);
+INSERT INTO `menu_options` VALUES (4008, 3008);
+INSERT INTO `menu_options` VALUES (4008, 3010);
+
+INSERT INTO `menu_options` VALUES (4009, 3000);
+INSERT INTO `menu_options` VALUES (4009, 3001);
+INSERT INTO `menu_options` VALUES (4009, 3004);
+INSERT INTO `menu_options` VALUES (4009, 3006);
+INSERT INTO `menu_options` VALUES (4009, 3007);

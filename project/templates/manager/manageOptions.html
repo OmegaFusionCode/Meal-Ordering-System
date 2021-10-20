@@ -1,0 +1,66 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Manage Options</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Manage Options</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    <div>
+        <table class="table table-bordered table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Option Name</th>
+                    <th>Selling Price</th>
+                    <th>Cost</th>
+                    <th colspan=2>Ingredients</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for option in optionsData %}
+                <tr>
+                    <td>{{ option["name"] }}</td>
+                    <td>£{{ option["price"] }}</td>
+                    <td>£{{ optionCosts[option['optionID']] }}</td>
+                    <td>
+                        {% for ingredient in ingredientsData %}
+                            {% if ingredient['optionID'] == option['optionID'] %}
+                                <div>{{ ingredient['name'].title() }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for ingredient in ingredientsData %}
+                            {% if ingredient['optionID'] == option['optionID'] %}
+                                <div>{{ ingredient['quantity'] }}g</div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td width="141px">
+                        <form action="{{ url_for('manageOptionsEdit') }}" method="POST" class="d-inline-block">
+                            <input type="hidden" name="optionID" value="{{ option['optionID'] }}"/>
+                            <input type="submit" class="btn btn-primary" name="submit" value="Edit"/>
+                        </form>
+                        <form action="{{ url_for('manageOptionsDelete') }}" method="POST" class="d-inline-block">
+                            <input type="hidden" name="override" value="0"/>
+                            <input type="hidden" name="optionID" value="{{ option['optionID'] }}"/>
+                            <input type="submit" class="btn btn-danger" name="submit" value="Delete"/>
+                        </form>
+                    </td>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+    <div class="my-3">
+        <a class="btn btn-success" href="{{ url_for('manageOptionsAdd') }}" role="button">Add new option</a>
+        <a class="btn btn-danger" href="{{ url_for('managerHome') }}" role="button">Back</a>
+    </div>
+{% endblock body %}

@@ -1,0 +1,64 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-2">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-2">Welcome, {{ studentdata['firstname'] }} {{ studentdata['lastname'] }}</h4>
+    <p class="my-2">Your current balance is £{{ studentdata['balance'] }}</p>
+    <p class="my-2">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    <div>
+        <table class="table table-bordered table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th colspan=2>Meal Option</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(5) %} <!--For each day of the school week, Monday to Friday-->
+                    <tr>
+                        <td>{{ dateclass.fromtimestamp(start + i*86400).strftime("%a %d %b") }}</td>
+                        {% set exists = [] %} <!--We don't yet know whether an order has been placed for this date-->
+                        {% for record in tabledata %}
+                            {% if record['timestamp'] == start + i*86400 %}
+                                {% if exists.append(True) %}{% endif %} <!--Necessary due to some technicalities within Jinja2-->
+                                <td>{{ record['name'] }}</td>
+                                <td style="width:142px">
+                                    {% if record['timestamp'] > tsToday %}
+                                        <form method="POST" action="{{ url_for('changeOrder') }}" class="d-inline-block">
+                                            <input type="hidden" name="orderID" value="{{ record['orderID'] }}"/>
+                                            <input type="hidden" name="dateFor" value="{{start + i*86400}}"/>
+                                            <input type="submit" class="btn btn-primary btn-sm" name="change" value="Change"/>
+                                        </form>
+                                        <form method="POST" action="{{ url_for('deleteOrder') }}" class="d-inline-block">
+                                            <input type="hidden" name="orderID" value="{{ record['orderID'] }}"/>
+                                            <input type="submit" class="btn btn-danger btn-sm" name="delete" value="Delete"/>
+                                        </form>
+                                    {% else %}Choice Fixed{% endif %}
+                                </td>
+                            {% endif %}
+                        {% endfor %}
+                        {% if True not in exists %} <!--If no order was placed for this date-->
+                            <td>No Meal Selected</td>
+                            <td style="width:142px">
+                                {% if start + i*86400 > tsToday %}
+                                    <form method="POST" action="{{ url_for('addOrder') }}" class="d-inline-block">
+                                        <input type="hidden" name="dateFor" value="{{start + i*86400}}"/>
+                                        <input type="submit" class="btn btn-success btn-sm" name="create" value="Create Order"/>
+                                    </form>
+                                {% else %}Choice Fixed{% endif %}
+                            </td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <form method="POST" action="">
+            <input type=submit class="btn btn-primary btn-sm" name="changeWeek" value="Show {% if secondWeek %}previous{% else %}next{% endif %} Week"/>
+        </form>
+    </div>
+{% endblock body %}

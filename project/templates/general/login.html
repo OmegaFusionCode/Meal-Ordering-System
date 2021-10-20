@@ -1,0 +1,34 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Login</title>
+{% endblock head %}
+
+{% block body %}
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <div class="my-3">
+        <form method="POST", action="">
+            <fieldset>
+                <legend>Please enter your details to continue:</legend>
+                {% if alert %} <!-- If the user did not input the correct details last time they tried to log in -->
+                    <div class="alert alert-danger">
+                        {{ alert }} <!--Displays the alert that was passed in-->
+                    </div>
+                {% endif %}
+                <div>
+                    <label for="userID">Network ID</label>
+                    <input type="text" name="userID"/>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password"/>
+                </div>
+            </fieldset>
+            <div>
+                <input type="submit" class="btn btn-primary" name="submit" value="Login"/>
+            </div>
+        </form>
+    </div>
+    <a href="{{ url_for('index') }}" class="btn btn-danger">Back</a>
+{% endblock body %}
+

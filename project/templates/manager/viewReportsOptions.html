@@ -1,0 +1,44 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>View Order Reports</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">View Order Reports</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    <p class="my-3">Currently viewing order reports for {{ dateFor.strftime("%A %d %B %Y") }}.</p>
+
+    <table class="table table-bordered table-sm mb-0">
+        <thead>
+            <tr>
+                <th>Option Name</th>
+                <th>Students who Ordered</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for optionRecord in optionsData %}
+                <tr>
+                    <td>{{ optionRecord['name'] }}</td>
+                    <td>
+                        {% for orderRecord in ordersData %}
+                            {% if orderRecord['optionID'] == optionRecord['optionID'] %}
+                                <div>
+                                    {{ orderRecord['firstname'] }} {{ orderRecord['lastname'] }}, {{ orderRecord['tutorgroup'] }}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>{{ quantities[optionRecord['optionID']] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="my-3">
+        <a class="btn btn-danger" href="{{ url_for('viewReports') }}" role="button">Back</a>
+    </div>
+{% endblock body %}

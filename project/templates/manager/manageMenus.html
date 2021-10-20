@@ -1,0 +1,51 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Manage Menus</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Manage Menus</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    <p class="my-3">Menus can be set up to four weeks in advance.</p>
+
+    <table class="table table-bordered table-sm mb-0">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Options</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in range(startDate, endDate+86400, 86400) %}
+                {% if dateclass.fromtimestamp(i).strftime("%a") not in ("Sat", "Sun") %}
+                    <tr>
+                        <td>{{ dateclass.fromtimestamp(i).strftime("%a %d %b") }}</td>
+                        <td>
+                            {% for record in data %}
+                                {% if record['timestamp'] == i %}
+                                    <div>
+                                        {{ record['name'] }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <form action="{{ url_for('manageMenusEdit') }}" method="POST">
+                                <input type="hidden" name="dateFor" value="{{ i }}"/>
+                                <input type="submit" class="btn btn-primary" name="submit" value="Edit"/>
+                            </form>
+                        </td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="my-3">
+        <a class="btn btn-danger" href="{{ url_for('managerHome') }}" role="button">Back</a>
+    </div>
+{% endblock body %}

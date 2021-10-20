@@ -1,0 +1,33 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    
+    <div>
+        <a class="btn" href="{{ url_for('manageMenus') }}" role="button">Manage Menus</a>
+    </div>
+    <div>
+        <a class="btn" href="{{ url_for('manageOptions') }}" role="button">Manage Food Options</a>
+    </div>
+    <div>
+        <a class="btn" href="{{ url_for('manageIngredients') }}" role="button">Manage Ingredients</a>
+    </div>
+    <div>
+        <a class="btn" href="{{ url_for('viewReports') }}" role="button">View Order Reports</a>
+    </div>
+    <div>
+        <a class="btn" href="{{ url_for('optionCreator') }}" role="button">Option Creator</a>
+    </div>
+    <div>
+        <a class="btn" href="{{ url_for('predictOrders') }}" role="button">Order Predictor</a>
+    </div>
+    <div>
+        <a class="btn" href="{{ url_for('addWeatherData') }}" role="button">Enter Weather Data</a>
+    </div>
+{% endblock body %}

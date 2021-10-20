@@ -1,0 +1,56 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Edit Existing Options</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Edit Existing Option</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    {% if alert %} <!-- If the user did not input the correct details last time -->
+        <div class="alert alert-danger">
+            {{ alert }} <!--Displays the alert that was passed in-->
+        </div>
+    {% endif %}
+
+    <form action="" method="POST">
+        <fieldset>
+            <legend>Please choose an ingredient to add</legend>
+            <input type="hidden" name="optionID" value="{{ optionID }}"/>
+
+            <table class="table table-bordered table-sm mb-0">
+                <thead>
+                    <tr>
+                        <th>Ingredient Name</th>
+                        <th>Price per KG</th>
+                        <th>Choice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ingredient in data %}
+                        <tr>
+                            <td>{{ ingredient['name'].title() }}</td>
+                            <td>{{ ingredient['pricePerKG'] }}</td>
+                            <td>
+                                <input type="radio" name="ingredientID" value="{{ ingredient['ingredientID'] }}"/>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <label for="quantity">Quantity</label>
+            <input type="number" name="quantity" min="0" value=""/>
+            <label for="quantity">g</label>
+        <div class="mt-3 mb-1">
+            <input type="submit" class="btn btn-primary" role="button" value="Confirm"/>
+        </div>
+    </form>
+
+    <form method="POST" action="{{ url_for('manageOptionsEdit') }}">
+        <input type="hidden" name="optionID" value="{{ optionID }}"/>
+        <input type="submit" class="btn btn-danger" role="button" value="Cancel"/>
+    </form>
+{% endblock body %}

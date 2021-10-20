@@ -1,0 +1,96 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>View Order Reports</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">View Order Reports</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    <p class="my-3">Currently viewing reports for quantity of {{ reportType }}s.</p>
+
+    <div class="mb-3">
+        <form action="" method="POST">
+            <input type="hidden" name="reportType" value="{% if reportType == 'option' %}ingredient{% else %}option{% endif %}"/>
+            <input type="submit" class="btn btn-primary" name="submit" value="Switch Report Type"/>
+        </form>
+    </div>
+    <table class="table table-bordered table-sm mb-0">
+        {% if reportType == "option" %} <!--Display option reports-->
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Option Name</th>
+                    <th>Quantity Ordered</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(startDate, endDate+86400, 86400) %}
+                    {% if dateclass.fromtimestamp(i).strftime("%a") not in ("Sat", "Sun") %}
+                        <tr>
+                            <td>{{ dateclass.fromtimestamp(i).strftime("%a %d %b") }}</td>
+                            <td>
+                                {% for option in data %}
+                                    {% if option['timestamp'] == i %}
+                                        <div>{{ option['name'] }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for option in data %}
+                                    {% if option['timestamp'] == i %}
+                                        <div>{{ option['quantity'] }}<div>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <form action="{{ url_for('viewReportsOptions') }}" method="POST">
+                                    <input type="hidden" name="dateFor" value="{{ i }}"/>
+                                    <input class="btn btn-primary" type="submit" name="details" value="Details"/>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        {% else %}  <!--Display ingredient reports-->
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Ingredient Name</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(startDate, endDate+86400, 86400) %}
+                    {% if dateclass.fromtimestamp(i).strftime("%a") not in ("Sat", "Sun") %}
+                        <tr>
+                            <td>{{ dateclass.fromtimestamp(i).strftime("%a %d %b") }}</td>
+                            <td>
+                                {% for ingredient in data %}
+                                    {% if ingredient["timestamp"] == i %}
+                                        <div>{{ ingredient["name"].title() }}</div>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for ingredient in data %}
+                                    {% if ingredient["timestamp"] == i %}
+                                        <div>{{ ingredient["quantity"] }}g</div>
+                                    {% endif %}
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        {% endif %}
+    </table>
+
+    <div class="my-3">
+        <a class="btn btn-danger" href="{{ url_for('managerHome') }}" role="button">Back</a>
+    </div>
+{% endblock body %}

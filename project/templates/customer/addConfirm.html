@@ -1,0 +1,32 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Create Order</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-2">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-2">Please confirm your decision.</h4>
+    <p class="my-2">You have chosen to place an order for {{ optionData["name"] }} on {{ dateclass.fromtimestamp(date).strftime("%A %d %B %Y") }}.</p>
+    <p class="my-2">Your account will be charged £{{ optionData['price'] }}.</p>
+    <p class="my-2">Your current balance is £{{ balance }}.</p>
+
+    {% if alert %} <!-- If the user did not input the correct details last time they tried to log in -->
+        <div class="alert alert-danger">
+            {{ alert }} <!-- the alert that was passed in-->
+        </div>
+    {% endif %}
+
+    <form method="POST" action="" class="d-inline-block">
+        <input type="hidden" name="addConfirm" value="true"/>
+        <input type="hidden" name="studentBalance" value="{{ balance }}"/>
+        <input type="hidden" name="dateFor" value="{{ date }}"/>
+        <input type="hidden" name="optionID" value="{{ optionData['optionID'] }}"/>
+        <input type="hidden" name="price" value="{{ optionData['price'] }}"/>
+
+        <input type="submit" class="btn btn-primary d-inline-block" name="delete" value="Confirm"/>
+        <a class="btn btn-danger" href="{{ url_for('customerHome') }}" role="button">Cancel</a>
+    </form>
+
+{% endblock body %}

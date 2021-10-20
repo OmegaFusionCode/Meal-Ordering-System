@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Delete from Menu</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Delete an option from a Menu</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    <p class="my-3">Are you sure you want to delete {{ name }} from the menu for {{ dateclass.fromtimestamp(dateFor).strftime("%A %d %B %Y") }}?</p>
+    <p class="my-3">{{ orders }} {% if orders == 1 %}order has{% else %}orders have{% endif %} been placed for this option on this day.</p>
+
+    <form action="{{ url_for('manageMenusEdit') }}" method="POST" class="d-inline-block">
+        <input type="hidden" name="deleteConfirm" value="1"/>
+        <input type="hidden" name="dateFor" value="{{ dateFor }}"/>
+        <input type="hidden" name="optionID" value="{{ optionID }}"/>
+        <input type="submit" class="btn btn-primary" name="submit" value="Confirm"/>
+    </form>
+
+    <a class="btn btn-danger d-inline-block" href="{{ url_for('manageMenus') }}" role="button">Cancel</a>
+{% endblock body %}

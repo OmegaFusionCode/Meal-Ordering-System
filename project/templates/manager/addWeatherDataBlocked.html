@@ -1,0 +1,18 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Add Weather Data</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Add Weather Data</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    
+    <p class="my-3">Weather data could not be added for {{ dateclass.fromtimestamp(weatherTS).strftime("%A %d %B %Y") }} because this date has not been reached yet.</p>
+
+    <div class="my-3">
+        <a class="btn btn-danger" href="{{ url_for('managerHome') }}" role="button">Back</a>
+    </div>
+{% endblock body %}

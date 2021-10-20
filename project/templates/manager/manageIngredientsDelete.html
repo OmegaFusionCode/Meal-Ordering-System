@@ -1,0 +1,23 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Delete Ingredient</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Delete Ingredient</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    <form action="" method="POST">
+        <legend>Are you sure you would like to delete the ingredient {{ name.title() }}?</legend>
+        <p>There {% if count == 1 %}is{% else %}are{% endif %} currently {{ count }} option{% if count != 1 %}s{% endif %} containing this ingredient.</p>
+        <input type="hidden" name="ingredientID" value="{{ ingredientID }}"/>
+        <input type="hidden" name="ingredientName" value="{{ name }}"/>
+        <div class="my-3">
+            <input type="submit" class="btn btn-primary" name="deleteConfirm" value="Confirm"/>
+            <a class="btn btn-danger d-inline-block" href="{{ url_for('manageIngredients') }}" role="button">Cancel</a>
+        </div>
+    </form>
+{% endblock body %}

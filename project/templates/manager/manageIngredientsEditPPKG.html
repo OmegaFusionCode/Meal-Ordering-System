@@ -1,0 +1,37 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Edit Ingredient Name</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Edit Ingredient Name</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    {% if alert %} <!-- If the user did not input the correct details last time -->
+        <div class="alert alert-danger">
+            {{ alert }} <!--Displays the alert that was passed in-->
+        </div>
+    {% endif %}
+
+    <form method="POST", action"">
+        <fieldset>
+            <legend>Please enter a new price per kg for {{ ingredientName.title() }}</legend>
+            <p>The current price per kilogram is £{{ ingredientPPKG }}
+            <input type="hidden" name="ingredientID" value="{{ ingredientID }}"/>
+            <input type="hidden" name="ingredientName" value="{{ ingredientName }}"/>
+            <input type="hidden" name="ingredientPPKG" value="{{ ingredientPPKG }}"/>
+            <div>
+                <label for="newPPKG">Price per kg    £</label>
+                <input type="number" min="0.01" step="0.01" name="newPPKG"/>
+                <label for="newPPKG">/ kg</label>
+            </div>
+        </fieldset>
+        <div class="my-3">
+            <input type="submit" class="btn btn-primary" name="submit" value="Confirm"/>
+            <a class="btn btn-danger" href="{{ url_for('manageIngredients') }}" role="button">Cancel</a>
+        </div>
+    </form>
+{% endblock body %}

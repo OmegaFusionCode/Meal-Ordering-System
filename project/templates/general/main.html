@@ -1,0 +1,11 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Welcome</title>
+{% endblock head %}
+
+{% block body %}
+    <h1 class="mb-3">Welcome to the Kings of Wessex Café Ordering System</h1>
+    <a class="btn btn-primary" href="{{ url_for('login') }}" role="button">Continue</a>
+{% endblock body %}
+

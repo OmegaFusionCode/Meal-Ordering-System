@@ -1,0 +1,29 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Edit Existing Options</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Edit Existing Option</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    <form action="" method="POST">
+        <fieldset>
+            <legend>Are you sure you want to delete the ingredient {{ ingredientData['name'].title() }} from {{ optionName }}?</legend>
+            <input type="hidden" name="deleteConfirm" value="1"/>
+            <input type="hidden" name="optionID" value="{{ optionID }}"/>
+            <input type="hidden" name="ingredientID" value="{{ ingredientData['ingredientID'] }}"/>
+        </fieldset>
+        <div class="mt-3 mb-1" >
+            <input type="submit" class="btn btn-primary" role="button" value="Confirm"/>
+        </div>
+    </form>
+    
+    <form method="POST" action="{{ url_for('manageOptionsEdit') }}">
+        <input type="hidden" name="optionID" value="{{ optionID }}"/>
+        <input type="submit" class="btn btn-danger" role="button" value="Cancel"/>
+    </form>
+{% endblock body %}

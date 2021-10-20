@@ -1,0 +1,58 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Manage Ingredients</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Manage Ingredients</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    <div>
+        <table class="table table-bordered table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Ingredient Name</th>
+                    <th>Allergens</th>
+                    <th>Price per KG</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ingredient in ingredientsData %}
+                <tr>
+                    <td>{{ ingredient["name"].title() }}</td>
+                    <td>
+                        {% for allergen in allergensData %}
+                            {% if allergen['ingredientID'] == ingredient['ingredientID'] %}
+                                <div>{{ allergen['name'].title() }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>£{{ ingredient["pricePerKG"] }}</td>
+                    <td width="141px">
+                        <form action="{{ url_for('manageIngredientsEdit') }}" method="POST" class="d-inline-block">
+                            <input type="hidden" name="ingredientID" value="{{ ingredient['ingredientID'] }}"/>
+                            <input type="hidden" name="ingredientName" value="{{ ingredient['name'] }}"/>
+                            <input type="hidden" name="ingredientPPKG" value="{{ ingredient['pricePerKG'] }}"/>
+                            <input type="submit" class="btn btn-primary" name="submit" value="Edit"/>
+                        </form>
+                        <form action="{{ url_for('manageIngredientsDelete') }}" method="POST" class="d-inline-block">
+                            <input type="hidden" name="ingredientID" value="{{ ingredient['ingredientID'] }}"/>
+                            <input type="hidden" name="ingredientName" value="{{ ingredient['name'] }}"/>
+                            <input type="submit" class="btn btn-danger" name="submit" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+    <div class="my-3">
+        <a class="btn btn-success" href="{{ url_for('manageIngredientsAdd') }}" role="button">Add new ingredient</a>
+        <a class="btn btn-danger" href="{{ url_for('managerHome') }}" role="button">Back</a>
+    </div>
+{% endblock body %}

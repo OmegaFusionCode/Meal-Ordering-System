@@ -1,0 +1,49 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Manage Menus</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Manage Menus</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    <p class="my-3">Showing menu data for {{ dateclass.fromtimestamp(dateFor).strftime("%A %d %B %Y") }}</p>
+
+    <table class="table table-bordered table-sm mb-0">
+        <thead>
+            <tr>
+                <th>Option Name</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in data %}
+                <tr>
+                    <td>{{ record['name'] }}</td>
+                    <td>{{ record['price'] }}</td>
+                    <td>
+                        <form action="{{ url_for('manageMenusEdit') }}" method="POST">
+                            <input type="hidden" name="dateFor" value="{{ dateFor }}"/>
+                            <input type="hidden" name="optionID" value="{{ record['optionID'] }}"/>
+                            <input type="hidden" name="name" value="{{ record['name'] }}"/>
+                            <input type="submit" class="btn btn-danger" name="submit" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <form action="{{ url_for('manageMenusEdit') }}" method="POST">
+        <input type="hidden" name="dateFor" value="{{ dateFor }}"/>
+        <input type="hidden" name="add" value="1"/>
+        <input type="submit" class="btn btn-success" name="submit" value="Add Option"/>
+    </form>
+
+    <div class="my-3">
+        <a class="btn btn-danger" href="{{ url_for('manageMenus') }}" role="button">Back</a>
+    </div>
+{% endblock body %}

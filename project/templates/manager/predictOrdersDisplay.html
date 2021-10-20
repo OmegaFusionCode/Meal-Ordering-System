@@ -1,0 +1,37 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Order Predictor</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4>Order Predictor</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+    <p>Here are the results of the order prediction</p>
+    
+    <table class="table table-bordered table-sm mb-0 mt-3">
+        <thead>
+            <tr>
+                <th>Option Name</th>
+                <th>Estimated Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for option in menuData %}
+                <tr>
+                    <td>{{ option['name'] }}</td>
+                    <td>{{ option['quantity'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="my-3">
+        <a class="btn btn-primary" href="{{ url_for('predictOrders') }}" role="button">Forecast Another Day</a>
+        <a class="btn btn-danger" href="{{ url_for('managerHome') }}" role="button">Back</a>
+    </div>
+    
+
+{% endblock body %}

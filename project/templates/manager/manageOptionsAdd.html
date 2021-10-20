@@ -1,0 +1,41 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Add New Option</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Add New Option</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    {% if alert %} <!-- If the user did not input the correct details last time -->
+        <div class="alert alert-danger">
+            {{ alert }} <!--Displays the alert that was passed in-->
+        </div>
+    {% endif %}
+
+    <div>
+        <form action="" method="POST">
+            <legend>Please enter the name and price of the new option.</legend>
+            <table>
+                <td>
+                    <tr>
+                        <td><label for="optionName">Name</label></td>
+                        <td><input type="input" name="optionName" value=""/></td>
+                    </tr>
+                    <tr>
+                        <td><label for="optionPrice">Price    £</label></td>
+                        <td><input type="number" step="0.01" min=0.01 name="optionPrice" value=""/></td>
+                    </tr>
+                </td>
+            </table>
+            <div class="my-3">
+                <input type="submit" class="btn btn-primary" name="submit" value="Confirm"/>
+                <a class="btn btn-danger d-inline-block" href="{{ url_for('manageOptions') }}" role="button">Back</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock body %}

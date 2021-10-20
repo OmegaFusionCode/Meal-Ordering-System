@@ -1,0 +1,71 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Edit Existing Options</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-3">Edit Existing Option</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    <p class="my-3">Option name: {{ optionData['name'] }}</p>
+    <form method="POST" action="{{ url_for('manageOptionsEditName') }}">
+        <input type="hidden" name="optionID" value="{{ optionData['optionID'] }}"/>
+        <input type="hidden" name="optionName" value="{{ optionData['name'] }}"/>
+        <input type="submit" class="btn btn-primary" name="submit" value="Change"/>
+    </form>
+
+    <p class="my-3">Option price: £{{ optionData['price'] }}</p>
+    <form method="POST" action="{{ url_for('manageOptionsEditPrice') }}">
+        <input type="hidden" name="optionID" value="{{ optionData['optionID'] }}"/>
+        <input type="hidden" name="optionName" value="{{ optionData['name'] }}"/>
+        <input type="hidden" name="optionPrice" value="{{ optionData['price'] }}"/>
+        <input type="submit" class="btn btn-primary" name="submit" value="Change"/>
+    </form>
+    
+    <div class="mt-3">
+        <table class="table table-bordered table-sm mb-0">
+            <thead>
+                <tr>
+                    <th>Ingredient Name</th>
+                    <th>Ingredient Quantity</th>
+                    <th>Ingredient Price</th>
+                    <th>Cost of Ingredient in Option</th>
+                    <th width="141px"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ingredient in ingredientsData %}
+                <tr>
+                    <td>{{ ingredient["name"].title() }}</td>
+                    <td>{{ ingredient["quantity"] }}g</td>
+                    <td>£{{ ingredient["pricePerKG"] }} per kg</td>
+                    <td>£{{ ingredient["quantity"] * ingredient['pricePerKG'] / 1000 }}</td>
+                    <td>
+                        <form class="d-inline-block" action="{{ url_for('manageOptionsEditIngredient') }}" method="POST">
+                            <input type="hidden" name="optionID" value="{{ optionData['optionID'] }}"/>
+                            <input type="hidden" name="ingredientID" value="{{ ingredient['ingredientID'] }}"/>
+                            <input type="submit" class="btn btn-primary" name="submit" value="Edit"/>
+                        </form>
+                        <form class="d-inline-block" action="{{ url_for('manageOptionsDeleteIngredient') }}" method="POST">
+                            <input type="hidden" name="optionID" value="{{ optionData['optionID'] }}"/>
+                            <input type="hidden" name="ingredientID" value="{{ ingredient['ingredientID'] }}"/>
+                            <input type="submit" class="btn btn-danger" name="submit" value="Delete"/>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+    <form class="d-inline-block" action="{{ url_for('manageOptionsAddIngredient') }}" method="POST">
+        <input type="hidden" name="optionID" value="{{ optionData['optionID'] }}"/>
+        <div class="my-3">
+            <input type="submit" class="btn btn-success" name="submit" value="Add Ingredient"/>
+            <a class="btn btn-danger" href="{{ url_for('manageOptions') }}" role="button">Back</a>
+        </div>
+    </form>
+{% endblock body %}

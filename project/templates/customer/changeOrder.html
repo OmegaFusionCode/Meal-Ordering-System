@@ -1,0 +1,61 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Create Order</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right ml-1" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-2">Kings of Wessex Café Ordering System</h2>
+    <h4 class="my-2">Please select an option.</h4>
+    <p class="my-2">The order will be placed for {{ dateclass.fromtimestamp(dateFor).strftime("%a %d %b") }}.</p>
+    <p class="my-2">Your current order is for {{ currentOrderData["name"] }}.</p>
+    <p class="my-2">Your balance is £{{ balance }}.</p>
+
+    {% if alert %} <!-- If the user did not input the correct details last time they tried to change their order -->
+        <div class="alert alert-danger">
+            {{ alert }} <!-- the alert that was passed in-->
+        </div>
+    {% endif %}
+
+    <form method="POST" action="" class="d-inline-block">
+        <input type="hidden" name="studentBalance" value="{{ balance }}"/>
+        <input type="hidden" name="dateFor" value="{{ dateFor }}"/>
+        <input type="hidden" name="currentOrderID" value="{{ currentOrderData['orderID'] }}"/>
+
+        <table class="table table-bordered table-sm mb-0">
+            <thead>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Choice</th>
+            </thead>
+            <tbody>
+                {% for record in menuData %}
+                    <tr>
+                        <td>{{ record['name'] }}</td>
+                        <td>£{{ record['price'] }}</td>
+                        <td>
+                            {% set allergensFound = [] %}
+                            {% for allergen in optionAllergens %}
+                                {% if record['optionID'] == allergen['optionID'] %}
+                                    {% for each in studentAllergens %}
+                                        {% if allergen['allergenID'] == each['allergenID'] and allergen['allergenID'] not in allergensFound %}
+                                            {% if not allergensFound %}Contains{% else %},{% endif %} {{ allergen['name'].upper() }}
+                                            {% if allergensFound.append(allergen['allergenID']) %}{% endif %}
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                            {% if not allergensFound %}
+                                <input type="radio" name="optionID" value="{{ record['optionID'] }}"/>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <input type="submit" class="btn btn-primary d-inline-block" name="delete" value="Confirm"/>
+        <a class="btn btn-danger" href="{{ url_for('customerHome') }}" role="button">Cancel</a>
+    </form>
+
+{% endblock body %}

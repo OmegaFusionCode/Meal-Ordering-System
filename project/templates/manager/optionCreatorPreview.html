@@ -1,0 +1,63 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Option Creator</title>
+{% endblock head %}
+
+{% block body %}
+    <a class="btn btn-warning float-right" href="{{ url_for('logout') }}" role="button">Log Out</a>
+    <h2 class="mb-3">Kings of Wessex Café Ordering System</h2>
+    <h4>Option Creator</h4>
+    <p class="my-3">The date today is {{ date.strftime("%A %d %B %Y") }}</p>
+
+    {% if alert %} <!-- If the user did not input the correct details last time -->
+        <div class="alert alert-danger">
+            {{ alert }} <!--Displays the alert that was passed in-->
+        </div>
+    {% endif %}
+    
+    <table class="my-3">
+        <tbody>
+            {% for ingredientID, ingredient in ingredientsData.iteritems() %}
+                <tr>
+                    <td>{{ ingredient['name'].title() }}:</td>
+                    <td> {{ ingredient['quantity'] }}g for </td>
+                    <td> £{{ ingredient['cost'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div>
+        Total cost: £{{ cost }}
+    </div>
+    <div>
+        Recommended selling price: £{{ price }}
+    </div>
+
+    <form action="" method="POST" class="my-3">
+        <input type="hidden" name="addConfirm" value="1"/>
+        <input type="hidden" name="price" value="{{ price }}"/>
+        {% for ingredientID, ingredient in ingredientsData.iteritems() %}
+            <input type="hidden" name="{{ ingredientID }}" value="{{ ingredient['quantity'] }}"/>
+        {% endfor %}
+        <div>
+            <label for="name">Option Name </label>
+            <input type="text" name="name" value=""/>
+        </div> 
+        <div>
+            <label for="priceOverride">Alternative price </label>
+            <input type="number" min="0" step="0.01" name="priceOverride" value=""/>
+        </div>
+        <div>
+            <input type="checkbox" name="usePrice"/>
+            <label for="usePrice"> Use this value as my price instead of the recommended selling price</label>
+        </div>
+        <div class="my-3">
+            <input type="submit" class="btn btn-primary" role="button" name="submit" value="Add to database"/>
+            <a class="btn btn-danger" href="{{ url_for('managerHome') }}" role="button">Cancel</a>
+        </div>
+
+    </form>
+
+{% endblock body %}

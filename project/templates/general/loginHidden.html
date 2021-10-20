@@ -1,0 +1,29 @@
+{% extends "master.html" %}
+
+{% block head %}
+    <title>Login</title>
+{% endblock head %}
+
+{% block body %}
+    <h2>Kings of Wessex Café Ordering System</h2>
+    <div>
+        <form method="POST", action="">
+            <fieldset>
+                <legend>Please enter your details to continue:</legend>
+                {% if alert %} <!-- If the user did not input the correct details last time they tried to log in -->
+                    <div class="alert alert-danger">
+                        {{ alert }} <!--Displays the alert that was passed in-->
+                    </div>
+                {% endif %}
+                <div>
+                    <label>Authorisation Code</label>
+                    <input type="password" name="authCode"/>
+                </div>
+            </fieldset>
+            <div>
+                <input type="submit" class="btn btn-primary" name="submit" value="Login"/>
+            </div>
+        </form>
+    </div>
+{% endblock body %}
+
